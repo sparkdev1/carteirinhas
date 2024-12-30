@@ -1,0 +1,136 @@
+//nome=Juliana%20Castro%20de%20Oliveira%20Santos&curso=Psicologia&matricula=R108848&identidade=520820010&dataNascimento=20/11/2003&campus=Alphaville
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carregamento e Informações</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e8ff);
+      color: #333;
+    }
+
+    .logo {
+      width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .loading, .success, .info {
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 100%; /* Garante que ocupe todo o espaço disponível */
+      flex-direction: column;
+    }
+
+    .loading span {
+      font-size: 1.2em;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+    .info {
+      margin-top: 20px;
+    }
+
+    .info div {
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo -->
+  <img src="https://logodownload.org/wp-content/uploads/2021/06/unip-logo-0.png" alt="Logo" class="logo">
+
+  <!-- Loading Section -->
+  <div class="loading">
+    <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" alt="Carregando..." width="50">
+    <span>Carregando...</span>
+  </div>
+
+  <!-- Success Section -->
+  <div class="success">✔ Sucesso!</div>
+
+  <!-- Information Section -->
+  <div class="info">
+    <div><strong>Nome:</strong> <span id="nome"></span></div>
+    <div><strong>Curso:</strong> <span id="curso"></span></div>
+    <div><strong>Matrícula:</strong> <span id="matricula"></span></div>
+    <div><strong>Identidade:</strong> <span id="identidade"></span></div>
+    <div><strong>Data de Nascimento:</strong> <span id="dataNascimento"></span></div>
+    <div><strong>Campus:</strong> <span id="campus"></span></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loadingDiv = document.querySelector('.loading');
+      const successDiv = document.querySelector('.success');
+      const infoDiv = document.querySelector('.info');
+
+      // Função para obter os parâmetros da URL
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          nome: params.get('nome'),
+          curso: params.get('curso'),
+          matricula: params.get('matricula'),
+          identidade: params.get('identidade'),
+          dataNascimento: params.get('dataNascimento'),
+          campus: params.get('campus')
+        };
+      }
+
+      // Obter parâmetros
+      const queryParams = getQueryParams();
+
+      // Preencher os campos com os dados obtidos
+      document.getElementById('nome').textContent = queryParams.nome || 'Não informado';
+      document.getElementById('curso').textContent = queryParams.curso || 'Não informado';
+      document.getElementById('matricula').textContent = queryParams.matricula || 'Não informado';
+      document.getElementById('identidade').textContent = queryParams.identidade || 'Não informado';
+      document.getElementById('dataNascimento').textContent = queryParams.dataNascimento || 'Não informado';
+      document.getElementById('campus').textContent = queryParams.campus || 'Não informado';
+
+      // Exibir a seção de carregamento
+      loadingDiv.style.display = 'flex';
+
+      // Simular o carregamento e exibir as informações
+      setTimeout(() => {
+        loadingDiv.style.display = 'none'; // Esconde "Carregando"
+        successDiv.style.display = 'block'; // Mostra "Sucesso"
+        infoDiv.style.display = 'block'; // Mostra informações
+      }, 3000); // 3 segundos de carregamento
+    });
+  </script>
+</body>
+</html>
